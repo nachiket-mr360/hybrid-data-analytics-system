@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Data Analytics System - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/premium.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/charts.css') }}">
+    <style>
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+        }
+        
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            background: rgba(15, 15, 26, 0.6);
+            backdrop-filter: var(--backdrop-blur);
+            border-radius: var(--radius-lg);
+            padding: 20px 30px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .navbar-nav {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+        }
+        
+        .navbar-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-base);
+            font-weight: 500;
+        }
+        
+        .navbar-nav a:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(26, 26, 46, 0.4);
+            backdrop-filter: var(--backdrop-blur);
+            padding: 50px 40px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-glass);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        
+        .upload-section {
+            background: rgba(124, 58, 237, 0.05);
+            border: 2px dashed var(--border-glow);
+            border-radius: var(--radius-lg);
+            padding: 50px 40px;
+            text-align: center;
+            transition: all var(--transition-base);
+            margin-bottom: 40px;
+        }
+        
+        .upload-section:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
+        }
+        
+        .upload-icon {
+            font-size: 4rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            display: block;
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        .file-label {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all var(--transition-base);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+        }
+        
+        .file-label:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(124, 58, 237, 0.4);
+        }
+        
+        .btn-analyze {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: var(--radius-lg);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 0 0 40px rgba(124, 58, 237, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin: 5px auto 20px;
+            width: fit-content;
+        }
+        
+        .btn-analyze::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-analyze:hover::before {
+            left: 100%;
+        }
+        
+        .btn-analyze:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 60px rgba(124, 58, 237, 0.5);
+        }
+        
+        .btn-analyze:active {
+            transform: translateY(-2px);
+        }
+        
+        .file-name {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #10b981;
+        }
+        
+        .mapping-section {
+            background: rgba(26, 26, 46, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-glass);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid var(--border-glow);
+            padding-bottom: 16px;
+        }
+        
+        .filters-section {
+            background: rgba(26, 26, 46, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin: 24px 0;
+            border: 1px solid var(--border-glass);
+        }
+        
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        
+        .filter-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            transition: all var(--transition-base);
+            background: rgba(15, 15, 26, 0.4);
+            color: var(--text-primary);
+        }
+        
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--accent-purple-light);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+        
+        .field-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+        }
+        
+        .field-table th,
+        .field-table td {
+            border: 1px solid var(--border-glass);
+            padding: 16px;
+            text-align: left;
+        }
+        
+        .field-table th {
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .field-table tr:hover {
+            background: rgba(26, 26, 46, 0.5);
+        }
+        
+        .field-table td {
+            color: var(--text-secondary);
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            transition: all var(--transition-base);
+            background: rgba(15, 15, 26, 0.4);
+            color: var(--text-primary);
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: var(--accent-purple-light);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+            margin-top: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(124, 58, 237, 0.4);
+        }
+        
+        .btn-submit:hover::before {
+            left: 100%;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-glass);
+            color: var(--text-secondary);
+        }
+        
+        ul li:last-child {
+            border-bottom: none;
+        }
+        
+        ul li:before {
+            content: "✓ ";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .extended-fields {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-glass);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .navbar-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .filter-row {
+                flex-direction: column;
+            }
+            
+            .field-table {
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .upload-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/premium.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/charts.css') }}">
+
+</head>
+<body class='premium-theme'>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-chart-line"></i> Hybrid Analytics System
+        </div>
+        <ul class="navbar-nav">
+            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#upload"><i class="fas fa-upload"></i> Upload</a></li>
+            <li><a href="#mapping"><i class="fas fa-map"></i> Map Columns</a></li>
+        </ul>
+    </nav>
+    
+        <div class="container">
+        
+        {% if columns %}
+        <div id="mapping">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--dark-text);"><i class="fas fa-tasks"></i> Map Your Columns</h2>
+            <p style="text-align: center; color: var(--light-text); margin-bottom: 30px;">Detected columns in your dataset:</p>
+        </div>
+            
+            <div class="mapping-section container" style="background: rgba(26, 26, 46, 0.4); backdrop-filter: blur(14px); border: 1px solid var(--border-glass); box-shadow: var(--shadow-md);">
+                <ul style="max-height: 200px; overflow-y: auto; background: rgba(15, 15, 26, 0.3); padding: 20px; border-radius: var(--radius-md); color: var(--text-secondary);">
+                    {% for col in columns %}
+                    <li><strong style="color: var(--text-primary);">{{ col }}</strong></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <form method="POST" action="/analyze" id="mappingForm">
+                <!-- Core Required Fields Section -->
+                <div class="mapping-section core-fields">
+                    <div class="section-title">Core Required Fields</div>
+                    <table class="field-table">
+                        <tr>
+                            <th>Standard Field</th>
+                            <th>Select Your Column</th>
+                        </tr>
+                        <tr>
+                            <td>Date (Must)</td>
+                            <td>
+                                <select name="date_col">
+                                    <option value="">-- None --</option>
+                                    {% for col in columns %}
+                                    <option value="{{ col }}" {% if extended_detected and extended_detected.get('date') == col %}selected{% endif %}>{{ col }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Product</td>
+                            <td>
+                                <select name="product_col">
+                                    <option value="">-- None --</option>
+                                    {% for col in columns %}
+                                    <option value="{{ col }}" {% if extended_detected and extended_detected.get('product') == col %}selected{% endif %}>{{ col }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Category</td>
+                            <td>
+                                <select name="category_col">
+                                    <option value="">-- None --</option>
+                                    {% for col in columns %}
+                                    <option value="{{ col }}" {% if extended_detected and extended_detected.get('category') == col %}selected{% endif %}>{{ col }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td>
+                                <select name="quantity_col">
+                                    <option value="">-- None --</option>
+                                    {% for col in columns %}
+                                    <option value="{{ col }}" {% if extended_detected and extended_detected.get('quantity') == col %}selected{% endif %}>{{ col }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Price/Selling Price</td>
+                            <td>
+                                <select name="selling_price_col">
+                                    <option value="">-- None --</option>
+                                    {% for col in columns %}
+                                    <option value="{{ col }}" {% if extended_detected and extended_detected.get('selling_price') == col %}selected{% endif %}>{{ col }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Cost (Optional)</td>
+                            <td>
+                                <select name="cost_price_col">
+                                    <option value="">-- None --</option>
+                                    {% for col in columns %}
+                                    <option value="{{ col }}" {% if extended_detected and extended_detected.get('cost') == col %}selected{% endif %}>{{ col }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Store/Location</td>
+                            <td>
+                                <select name="store_col">
+                                    <option value="">-- None --</option>
+                                    {% for col in columns %}
+                                    <option value="{{ col }}" {% if extended_detected and extended_detected.get('store') == col %}selected{% endif %}>{{ col }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <!-- Optional Extended Fields Section -->
+                {% if extended_field_options %}
+                <div class="mapping-section extended-fields">
+                    <div class="section-title">Optional Business Dimensions</div>
+                    <p>Auto-detected fields from your dataset. Map additional dimensions or leave as "None".</p>
+                    <table class="field-table">
+                        <tr>
+                            <th>Business Dimension</th>
+                            <th>Select Your Column</th>
+                        </tr>
+                        {% for field_type, field_label in extended_field_options.items() %}
+                        <tr>
+                            <td>{{ field_label }}</td>
+                            <td>
+                                <select name="{{ field_type }}_col">
+                                    <option value="">-- None --</option>
+                                    {% for col in columns %}
+                                    <option value="{{ col }}" {% if extended_detected and extended_detected.get(field_type) == col %}selected{% endif %}>{{ col }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
+                
+                <br>
+                <input type="hidden" name="filename" value="{{ filename }}">
+                <!-- Hidden input to pass categorical column names -->
+                <input type="hidden" name="categorical_columns" value="{{ categorical_columns|join(',') }}">
+                <button type="submit" class="btn-analyze">
+                    <i class="fas fa-chart-line"></i> Analyze Dataset
+                </button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    
+    <script>
+        function updateFileName() {
+            const input = document.getElementById('file-upload');
+            const fileNameDisplay = document.getElementById('file-name');
+            if (input.files && input.files.length > 0) {
+                fileNameDisplay.textContent = 'Selected: ' + input.files[0].name;
+                fileNameDisplay.style.color = 'var(--success-color)';
+            } else {
+                fileNameDisplay.textContent = '';
+            }
+        }
+        
+        // Add fade-in animation to all sections on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.upload-section, .mapping-section, .filters-section');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

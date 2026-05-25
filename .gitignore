@@ -1,0 +1,276 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+env.bak/
+venv.bak/
+virtualenv/
+
+# IDE and editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+.settings/
+*.iml
+.gradle
+.classpath
+.cproject
+.factorypath
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.hypothesis/
+nosetests.xml
+coverage.xml
+*.cover
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Flask
+instance/
+.webassets-cache
+
+# Unit test / coverage reports
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+.env.example
+secrets.json
+config.local.py
+
+# Project-specific
+uploads/
+temp_data/
+*.csv.backup
+*.xlsx.backup
+data/uploads/
+data/temp/
+.local/
+
+# OS and system files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# Debug and development
+debug.log
+*.stackdump
+.pdb
+.ipdb
+.breakpoints
+
+# Temporary and cache
+*.cache
+.cache/
+.tmp/
+temp/
+tmp/
+*.log*
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.dbf
+
+# Build artifacts
+dist/
+build/
+*.tar.gz
+*.zip
+
+# Node dependencies (if using frontend build tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# MacOS
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+ehthumbs.db
+Desktop.ini
+
+# IDE temp files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Keep track of large files
+*.tar.gz.bak
+*.zip.bak
+
+# Generated files that shouldn't be committed
+*.gen.py
+*.auto.py
+
+# Local development files
+local_config.py
+debug_settings.py
+
+# Model and checkpoint files (ML)
+*.pkl
+*.pickle
+*.joblib
+*.h5
+*.hdf5
+
+# Data files (except sample data)
+data/*.csv
+data/*.xlsx
+!data/sample_*
+
+# Backup files
+*.backup
+*.bkp
+*_backup/
+*_old/
+
+# Logs
+logs/
+*.log
+log.txt
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Sphinx documentation
+docs/_build/
+
+# Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Mac OS X
+.DS_Store
+
+# Coverage
+.coverage
+.coverage.*
+htmlcov/
+
+# Pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# type hints
+.type_check
+
+# Temporary uploaded files
+uploads/*
+!uploads/.gitkeep
+
+# Temporary processed data
+temp_data/*
+!temp_data/.gitkeep
+
+# User-specific analysis files
+analysis_results/
+user_uploads/
+processed_data/
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# PyCharm
+.idea/*
+!.idea/runConfigurations
+
+# Performance files
+*.prof
+*.lprof
+*.pstats
+
+# Pickle files
+*.pkl
+*.pickle
+
+# Keep sample data but ignore large datasets
+data/
+!data/sample_retail_data.csv
+!data/sample_generic_data.csv

@@ -1,0 +1,504 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Dataset - Hybrid Analytics System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/premium.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: var(--font-primary);
+        }
+
+        .upload-wrapper {
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ==========================================
+           UPLOAD CONTAINER
+           ========================================== */
+        .upload-container {
+            background: rgba(26, 26, 46, 0.4);
+            backdrop-filter: var(--backdrop-blur);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 50px 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* ==========================================
+           FILE INPUT AREA - NEON GLOW EFFECT
+           ========================================== */
+        .file-input-wrapper {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            border: 2px dashed var(--border-glow);
+            border-radius: var(--radius-lg);
+            background: rgba(124, 58, 237, 0.05);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+            pointer-events: none;
+        }
+
+        .file-label:hover {
+            border-color: var(--accent-purple-light);
+            background: rgba(124, 58, 237, 0.1);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.15), inset 0 0 30px rgba(124, 58, 237, 0.05);
+        }
+
+        .file-label:hover::before {
+            opacity: 1;
+        }
+
+        .file-label.drag-over {
+            border-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1);
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.2);
+        }
+
+        .file-label-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .file-label i {
+            font-size: 3.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(124, 58, 237, 0.3));
+        }
+
+        .file-label p {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin: 12px 0;
+            font-weight: 600;
+        }
+
+        .file-label small {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================
+           SELECTED FILE DISPLAY
+           ========================================== */
+        .selected-file {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            animation: slideInDown 0.4s ease-out;
+        }
+
+        .selected-file.show {
+            display: flex;
+        }
+
+        .selected-file i {
+            font-size: 1.5rem;
+            color: #10b981;
+        }
+
+        .selected-file span {
+            color: var(--text-secondary);
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        /* ==========================================
+           UPLOAD BUTTON
+           ========================================== */
+        .btn-upload {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: var(--radius-lg);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .btn-upload::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-upload:hover::before {
+            left: 100%;
+        }
+
+        .btn-upload:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-upload:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-upload:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ==========================================
+           INFO CARDS
+           ========================================== */
+        .upload-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: rgba(26, 26, 46, 0.3);
+            border: 1px solid var(--border-glass);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: all var(--transition-base);
+        }
+
+        .info-card:hover {
+            background: rgba(26, 26, 46, 0.5);
+            border-color: var(--border-glow);
+            transform: translateY(-3px);
+        }
+
+        .info-card i {
+            font-size: 1.75rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .info-card h3 {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ==========================================
+           QUICK ACTIONS
+           ========================================== */
+        .quick-actions {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-glass);
+            text-align: center;
+        }
+
+        .quick-actions p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .quick-link {
+            padding: 8px 16px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid var(--border-glass);
+            color: var(--accent-purple-light);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+        }
+
+        .quick-link:hover {
+            background: rgba(124, 58, 237, 0.2);
+            border-color: var(--accent-purple-light);
+        }
+
+        /* ==========================================
+           RESPONSIVE
+           ========================================== */
+        @media (max-width: 768px) {
+            .upload-container {
+                padding: 40px 24px;
+            }
+
+            .file-label {
+                padding: 50px 30px;
+            }
+
+            .page-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .upload-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .upload-container {
+                padding: 30px 20px;
+            }
+
+            .page-header {
+                margin-bottom: 30px;
+            }
+
+            .file-label {
+                padding: 40px 20px;
+            }
+
+            .file-label i {
+                font-size: 2.5rem;
+            }
+
+            .file-label p {
+                font-size: 1rem;
+            }
+
+            .btn-upload {
+                padding: 14px 24px;
+                font-size: 1rem;
+            }
+
+            .quick-links {
+                flex-direction: column;
+            }
+
+            .quick-link {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="upload-wrapper">
+        <div class="page-header">
+            <h1><i class="fas fa-cloud-upload-alt"></i> Upload Your Dataset</h1>
+            <p>Transform your raw data into powerful insights and visualizations</p>
+        </div>
+
+        <div class="upload-container">
+            <form method="POST" action="/upload" enctype="multipart/form-data" class="upload-form" id="uploadForm">
+                <div class="file-input-wrapper">
+                    <input type="file" name="file" id="fileInput" accept=".csv" required onchange="showFileName()">
+                    <label for="fileInput" class="file-label" id="fileLabel">
+                        <div class="file-label-content">
+                            <i class="fas fa-file-csv"></i>
+                            <p>Click to select CSV file</p>
+                            <small>or drag and drop here</small>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="selected-file" id="selectedFile">
+                    <i class="fas fa-check-circle"></i> <span id="fileName"></span>
+                </div>
+
+                <button type="submit" class="btn-upload" id="uploadBtn">
+                    <i class="fas fa-upload"></i> Upload & Continue
+                </button>
+            </form>
+
+            <div class="upload-info">
+                <div class="info-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>CSV Format</h3>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Fast Upload</h3>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-lock"></i>
+                    <h3>Secure</h3>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <p>Or navigate:</p>
+                <div class="quick-links">
+                    <a href="{{ url_for('upload_file') }}" class="quick-link">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                    <a href="{{ url_for('choose_analysis') }}" class="quick-link">
+                        <i class="fas fa-arrow-right"></i> Sample Analysis
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const fileLabel = document.getElementById('fileLabel');
+        const selectedFile = document.getElementById('selectedFile');
+        const fileName = document.getElementById('fileName');
+
+        function showFileName() {
+            if (fileInput.files.length > 0) {
+                fileName.textContent = fileInput.files[0].name;
+                selectedFile.classList.add('show');
+            } else {
+                selectedFile.classList.remove('show');
+            }
+        }
+
+        // Drag and drop support
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            fileLabel.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            fileLabel.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            fileLabel.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            fileLabel.classList.add('drag-over');
+        }
+
+        function unhighlight(e) {
+            fileLabel.classList.remove('drag-over');
+        }
+
+        fileLabel.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+
+            fileInput.files = files;
+            showFileName();
+        }
+
+        // Form submission animation
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            const btn = document.getElementById('uploadBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+        });
+    </script>
+</body>
+</html>

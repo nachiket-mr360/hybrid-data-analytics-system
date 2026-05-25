@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Data Analytics & Retail Decision Support System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/premium.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>DataInsights Pro</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#retail">Retail Analysis</a>
+                <a href="#generic">Generic Analysis</a>
+                <a href="{{ url_for('upload_file') }}" class="nav-cta">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg-animation"></div>
+        <div class="hero-content">
+            <h1 class="hero-title reveal-text">
+                Hybrid Data Analytics &<br>
+                <span class="gradient-text">Retail Decision Support System</span>
+            </h1>
+            <p class="hero-subtitle reveal-text-delay">
+                Turn your raw data into smart business decisions
+            </p>
+            <p class="hero-description reveal-text-delay-2">
+                No coding required. Just upload your data and get instant insights, 
+                visualizations, and actionable recommendations.
+            </p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('upload_file') }}" class="btn btn-primary reveal-text-delay-3">
+                        <i class="fas fa-upload"></i> Upload Dataset
+                </a>
+                <a href="#features" class="btn btn-secondary reveal-text-delay-3">
+                    <i class="fas fa-compass"></i> Explore Features
+                </a>
+            </div>
+            <div class="hero-stats reveal-text-delay-3">
+                <div class="stat-item">
+                    <div class="stat-number">10x</div>
+                    <div class="stat-label">Faster Analysis</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Coding Required</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">AI</div>
+                    <div class="stat-label">Powered Insights</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header reveal-on-scroll">
+                <h2>About The Project</h2>
+                <p class="section-subtitle">Data intelligence made simple</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text reveal-on-scroll">
+                    <h3>What Does This System Do?</h3>
+                    <p>
+                        This intelligent platform automatically analyzes your business data and provides 
+                        <strong>clear, actionable insights</strong> — no data science degree required.
+                    </p>
+                    <ul class="about-features">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span><strong>Automatic Data Cleaning:</strong> We fix messy data so you don't have to</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span><strong>Smart Analysis:</strong> Detects trends, patterns, and opportunities</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span><strong>Business Insights:</strong> Tells you WHAT to do, not just what happened</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span><strong>Visual Dashboards:</strong> Beautiful charts anyone can understand</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="about-visual reveal-on-scroll">
+                    <div class="visual-card">
+                        <div class="visual-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Perfect For</span>
+                        </div>
+                        <div class="visual-list">
+                            <div class="visual-item">
+                                <i class="fas fa-store"></i>
+                                <span>Retail & E-commerce</span>
+                            </div>
+                            <div class="visual-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Sales Analysis</span>
+                            </div>
+                            <div class="visual-item">
+                                <i class="fas fa-users"></i>
+                                <span>Customer Insights</span>
+                            </div>
+                            <div class="visual-item">
+                                <i class="fas fa-database"></i>
+                                <span>Any Dataset</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header reveal-on-scroll">
+                <h2>How It Works</h2>
+                <p class="section-subtitle">Five simple steps to smarter decisions</p>
+            </div>
+            <div class="pipeline">
+                <div class="pipeline-step reveal-on-scroll" style="animation-delay: 0.1s">
+                    <div class="step-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h4>Upload Data</h4>
+                    <p>Drop your CSV file</p>
+                </div>
+                <div class="pipeline-arrow reveal-on-scroll">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="pipeline-step reveal-on-scroll" style="animation-delay: 0.2s">
+                    <div class="step-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <h4>Clean Data</h4>
+                    <p>AI fixes errors</p>
+                </div>
+                <div class="pipeline-arrow reveal-on-scroll">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="pipeline-step reveal-on-scroll" style="animation-delay: 0.3s">
+                    <div class="step-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4>Analyze</h4>
+                    <p>Smart processing</p>
+                </div>
+                <div class="pipeline-arrow reveal-on-scroll">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="pipeline-step reveal-on-scroll" style="animation-delay: 0.4s">
+                    <div class="step-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h4>Generate Insights</h4>
+                    <p>Business intelligence</p>
+                </div>
+                <div class="pipeline-arrow reveal-on-scroll">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="pipeline-step reveal-on-scroll" style="animation-delay: 0.5s">
+                    <div class="step-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h4>Dashboard</h4>
+                    <p>Visual results</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header reveal-on-scroll">
+                <h2>Core Features</h2>
+                <p class="section-subtitle">Everything you need to make data-driven decisions</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Intelligent Data Cleaning</h3>
+                    <p>Business-aware cleaning that protects important data like revenue and profit while fixing errors automatically.</p>
+                </div>
+                <div class="feature-card reveal-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Retail Decision Support</h3>
+                    <p>Complete retail analytics: revenue, profit, top products, store rankings, and sales forecasts.</p>
+                </div>
+                <div class="feature-card reveal-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Generic Dataset Analyzer</h3>
+                    <p>Works with ANY dataset — student data, surveys, research data, or business records.</p>
+                </div>
+                <div class="feature-card reveal-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Automatic Visualizations</h3>
+                    <p>Professional charts and dashboards generated automatically from your data.</p>
+                </div>
+                <div class="feature-card reveal-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-crystal-ball"></i>
+                    </div>
+                    <h3>Forecasting & Trends</h3>
+                    <p>ML-powered predictions to forecast future sales, trends, and performance.</p>
+                </div>
+                <div class="feature-card reveal-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Insight Generation</h3>
+                    <p>AI-generated business insights with actionable recommendations, not just raw numbers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Retail Analysis Showcase -->
+    <section class="retail-showcase" id="retail">
+        <div class="container">
+            <div class="section-header reveal-on-scroll">
+                <h2>Retail Analysis</h2>
+                <p class="section-subtitle">Complete business intelligence for retail & e-commerce</p>
+            </div>
+            <div class="showcase-content">
+                <div class="showcase-features reveal-on-scroll">
+                    <div class="showcase-item">
+                        <div class="showcase-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="showcase-info">
+                            <h4>Revenue Calculation</h4>
+                            <p>Track total revenue, average order value, and revenue trends over time</p>
+                        </div>
+                    </div>
+                    <div class="showcase-item">
+                        <div class="showcase-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="showcase-info">
+                            <h4>Profit Analysis</h4>
+                            <p>Profit margins, loss identification, and profitability by product/category</p>
+                        </div>
+                    </div>
+                    <div class="showcase-item">
+                        <div class="showcase-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="showcase-info">
+                            <h4>Top Performers</h4>
+                            <p>Best stores, top products, leading categories automatically detected</p>
+                        </div>
+                    </div>
+                    <div class="showcase-item">
+                        <div class="showcase-icon">
+                            <i class="fas fa-chart-area"></i>
+                        </div>
+                        <div class="showcase-info">
+                            <h4>Sales Trends</h4>
+                            <p>Historical trends, seasonal patterns, and growth opportunities identified</p>
+                        </div>
+                    </div>
+                    <div class="showcase-item">
+                        <div class="showcase-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="showcase-info">
+                            <h4>Recommendations</h4>
+                            <p>15+ actionable business recommendations generated automatically</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-visual reveal-on-scroll">
+                    <div class="visual-placeholder">
+                        <i class="fas fa-chart-pie"></i>
+                        <p>Revenue Dashboard Preview</p>
+                        <div class="dummy-chart">
+                            <div class="chart-bar" style="height: 60%"></div>
+                            <div class="chart-bar" style="height: 80%"></div>
+                            <div class="chart-bar" style="height: 45%"></div>
+                            <div class="chart-bar" style="height: 95%"></div>
+                            <div class="chart-bar" style="height: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Generic Analysis Showcase -->
+    <section class="generic-showcase" id="generic">
+        <div class="container">
+            <div class="section-header reveal-on-scroll">
+                <h2>Generic Dataset Analyzer</h2>
+                <p class="section-subtitle">Works with ANY type of data</p>
+            </div>
+            <div class="showcase-content reverse">
+                <div class="showcase-features reveal-on-scroll">
+                    <div class="showcase-item">
+                        <div class="showcase-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="showcase-info">
+                            <h4>Student Data</h4>
+                            <p>Analyze grades, attendance, performance trends, and identify at-risk students</p>
+                        </div>
+                    </div>
+                    <div class="showcase-item">
+                        <div class="showcase-icon">
+                            <i class="fas fa-poll"></i>
+                        </div>
+                        <div class="showcase-info">
+                            <h4>Survey Data</h4>
+                            <p>Response analysis, sentiment detection, and key finding extraction</p>
+                        </div>
+                    </div>
+                    <div class="showcase-item">
+                        <div class="showcase-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="showcase-info">
+                            <h4>Healthcare Data</h4>
+                            <p>Patient records analysis, treatment outcomes, and operational insights</p>
+                        </div>
+                    </div>
+                    <div class="showcase-item">
+                        <div class="showcase-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="showcase-info">
+                            <h4>Any Dataset</h4>
+                            <p>Automatic statistics, correlations, distributions, and insights for any data type</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-visual reveal-on-scroll">
+                    <div class="visual-placeholder">
+                        <i class="fas fa-table"></i>
+                        <p>Universal Data Analysis</p>
+                        <div class="data-preview">
+                            <div class="data-row"><div class="data-cell"></div><div class="data-cell"></div><div class="data-cell"></div></div>
+                            <div class="data-row"><div class="data-cell"></div><div class="data-cell"></div><div class="data-cell"></div></div>
+                            <div class="data-row"><div class="data-cell"></div><div class="data-cell"></div><div class="data-cell"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Different Section -->
+    <section class="why-different">
+        <div class="container">
+            <div class="section-header reveal-on-scroll">
+                <h2>Why This Project Is Different</h2>
+                <p class="section-subtitle">Not just another data tool</p>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card reveal-on-scroll">
+                    <div class="comparison-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Business-Aware Intelligence</h3>
+                    <p>Unlike blind cleaning tools, we understand business context. Revenue spikes aren't errors — they're opportunities.</p>
+                </div>
+                <div class="comparison-card reveal-on-scroll">
+                    <div class="comparison-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Dual-Purpose System</h3>
+                    <p>Works for both specialized retail analysis AND general datasets. One tool, multiple use cases.</p>
+                </div>
+                <div class="comparison-card reveal-on-scroll">
+                    <div class="comparison-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>No Technical Skills Needed</h3>
+                    <p>Upload, click, get insights. No Python, no SQL, no coding. Designed for business users.</p>
+                </div>
+                <div class="comparison-card reveal-on-scroll">
+                    <div class="comparison-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Actionable Insights</h3>
+                    <p>We don't just show charts — we tell you WHAT to do with the data. Real recommendations, not just numbers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Capacity Section -->
+    <section class="data-capacity">
+        <div class="container">
+            <div class="section-header reveal-on-scroll">
+                <h2>Performance & Capacity</h2>
+                <p class="section-subtitle">Built to handle real-world data</p>
+            </div>
+            <div class="capacity-cards">
+                <div class="capacity-card reveal-on-scroll">
+                    <div class="capacity-icon small">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h4>Minimum</h4>
+                    <div class="capacity-value">~100 rows</div>
+                    <p>Small datasets work fine for basic analysis and testing</p>
+                </div>
+                <div class="capacity-card reveal-on-scroll">
+                    <div class="capacity-icon medium">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h4>Recommended</h4>
+                    <div class="capacity-value">1,000 - 50,000</div>
+                    <p>Optimal range for best insights and accurate forecasting</p>
+                </div>
+                <div class="capacity-card reveal-on-scroll">
+                    <div class="capacity-icon large">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h4>Maximum</h4>
+                    <div class="capacity-value">100,000+</div>
+                    <p>Supported with system optimization and adequate resources</p>
+                </div>
+            </div>
+            <div class="performance-note reveal-on-scroll">
+                <i class="fas fa-info-circle"></i>
+                <p>Processing time depends on dataset size. Typical analysis: <strong>30 seconds to 5 minutes</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content reveal-on-scroll">
+                <h2>Ready to Make Smarter Decisions?</h2>
+                <p>Start analyzing your data now — no signup, no setup, just results.</p>
+                <a href="{{ url_for('upload_file') }}" class="btn btn-primary btn-large reveal-text-delay-3">
+                    <i class="fas fa-rocket"></i> Start Analyzing Your Data Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i>
+                        <span>DataInsights Pro</span>
+                    </div>
+                    <p>Transform raw data into actionable business intelligence</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="{{ url_for('upload_file') }}">Upload Data</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Analysis Types</h4>
+                    <ul>
+                        <li><a href="#retail">Retail Analysis</a></li>
+                        <li><a href="#generic">Generic Analysis</a></li>
+                        <li><a href="#features">Data Cleaning</a></li>
+                        <li><a href="#features">Forecasting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-info">
+                    <h4>Project Info</h4>
+                    <p><strong>Hybrid Data Analytics</strong></p>
+                    <p>& Retail Decision Support System</p>
+                    <p class="footer-tech">Built with Python, Flask, Pandas & ML</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DataInsights Pro. Built for data-driven decision making.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/landing.js') }}"></script>
+</body>
+</html>

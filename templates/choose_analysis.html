@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Analysis Type - Hybrid Analytics System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/premium.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/charts.css') }}">
+    <style>
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+        }
+        
+        .navbar {
+            max-width: 900px;
+            margin: 0 auto 40px;
+            background: rgba(15, 15, 26, 0.6);
+            backdrop-filter: var(--backdrop-blur);
+            border-radius: var(--radius-lg);
+            padding: 20px 30px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .navbar-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-base);
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        
+        .navbar-nav a:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(26, 26, 46, 0.4);
+            backdrop-filter: var(--backdrop-blur);
+            padding: 50px 40px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-glass);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+        
+        .file-info {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 40px;
+            animation: slideInDown 0.6s ease-out;
+        }
+        
+        .file-info h3 {
+            color: #10b981;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .file-info p {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .columns-preview {
+            max-height: 150px;
+            overflow-y: auto;
+            background: rgba(15, 15, 26, 0.4);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .columns-preview ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .columns-preview li {
+            color: var(--text-secondary);
+            padding: 6px 0;
+            font-size: 0.95rem;
+        }
+        
+        .columns-preview li:before {
+            content: "• ";
+            color: var(--accent-purple-light);
+            margin-right: 8px;
+            font-weight: bold;
+        }
+        
+        .analysis-section h2 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .analysis-type {
+            background: rgba(26, 26, 46, 0.4);
+            border: 2px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 24px;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .analysis-type:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        
+        .analysis-type:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .analysis-type::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.1), transparent);
+            transition: left 0.5s;
+            pointer-events: none;
+        }
+        
+        .analysis-type:hover {
+            border-color: var(--border-glow);
+            background: rgba(26, 26, 46, 0.6);
+            transform: translateY(-8px);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
+        }
+        
+        .analysis-type:hover::before {
+            left: 100%;
+        }
+        
+        .analysis-type.selected {
+            border-color: var(--accent-purple);
+            background: rgba(124, 58, 237, 0.1);
+            box-shadow: 0 0 40px rgba(124, 58, 237, 0.2);
+        }
+        
+        .analysis-type.selected::after {
+            content: "✓";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .analysis-type h3 {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .analysis-type p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .features {
+            font-size: 0.95em;
+        }
+        
+        .features strong {
+            display: block;
+            color: var(--accent-purple-light);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        
+        .features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .features li {
+            margin-bottom: 10px;
+            padding-left: 28px;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .features li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+        
+        .btn {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            transition: all var(--transition-base);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover:not(:disabled)::before {
+            left: 100%;
+        }
+        
+        .btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(124, 58, 237, 0.4);
+        }
+        
+        .btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.5;
+            box-shadow: none;
+        }
+        
+        .no-data-message {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(124, 58, 237, 0.05);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            margin-top: 20px;
+        }
+        
+        .no-data-message i {
+            font-size: 3rem;
+            color: var(--accent-pink);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .no-data-message h3 {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        
+        .no-data-message p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .no-data-message a {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            transition: all var(--transition-base);
+        }
+        
+        .no-data-message a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .navbar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .analysis-type {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .analysis-type {
+                padding: 20px;
+            }
+            
+            .analysis-type h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/premium.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/charts.css') }}">
+    
+</head>
+<body class='premium-theme'>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-chart-line"></i> Hybrid Analytics
+        </div>
+        <ul class="navbar-nav">
+            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-random"></i> Choose Analysis</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1><i class="fas fa-compass"></i> Choose Analysis Type</h1>
+        <p class="subtitle">Select the best analysis approach for your data</p>
+        
+        <div class="file-info">
+            <h3><i class="fas fa-file-alt"></i> Uploaded File Details</h3>
+            {% if filename %}
+            <p><strong>Filename:</strong> {{ filename }}</p>
+            {% endif %}
+            
+            {% if columns %}
+            <p><strong>Columns detected:</strong> {{ columns|length }}</p>
+            <p><strong>Sample columns:</strong></p>
+            <div class="columns-preview">
+                <ul>
+                    {% for col in columns[:10] %}
+                    <li>{{ col }}</li>
+                    {% endfor %}
+                    {% if columns|length > 10 %}
+                    <li>... and {{ columns|length - 10 }} more</li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% else %}
+            <p style="color: var(--warning-color);"><i class="fas fa-exclamation-triangle"></i> No columns found. Please upload a dataset first.</p>
+            {% endif %}
+        </div>
+        
+        <form method="POST" action="/choose_analysis" id="analysisChoiceForm">
+            <div class="analysis-section">
+                <h2><i class="fas fa-compass"></i> Select Your Analysis Type</h2>
+            
+            {% if columns %}
+            <div class="analysis-type" onclick="selectAnalysisType('retail')">
+                <h3>📊 Retail Analysis</h3>
+                <p>Perfect for sales, inventory, and retail business data with structured fields like date, product, price, etc.</p>
+                <div class="features">
+                    <strong>Features:</strong>
+                    <ul>
+                        <li>Revenue and profit calculations</li>
+                        <li>Store and product performance</li>
+                        <li>Sales trends analysis</li>
+                        <li>Category performance metrics</li>
+                        <li>Custom field mapping</li>
+                    </ul>
+                </div>
+                <input type="radio" name="analysis_type" id="retail" value="retail" style="display:none;">
+            </div>
+            
+            <div class="analysis-type" onclick="selectAnalysisType('generic')">
+                <h3>🔍 Generic Analysis (EDA)</h3>
+                <p>Automatic exploration for any type of dataset without needing to map specific fields.</p>
+                <div class="features">
+                    <strong>Features:</strong>
+                    <ul>
+                        <li>Automatic data profiling</li>
+                        <li>Statistical summaries</li>
+                        <li>Missing values analysis</li>
+                        <li>Correlation analysis</li>
+                        <li>Basic visualizations</li>
+                    </ul>
+                </div>
+                <input type="radio" name="analysis_type" id="generic" value="generic" style="display:none;">
+            </div>
+            
+            <button type="submit" id="continueBtn" class="btn" disabled>Continue with Selection</button>
+            {% else %}
+            <div class="no-data-message">
+                <i class="fas fa-exclamation-circle" style="font-size: 3rem; color: var(--warning-color); margin-bottom: 15px;"></i>
+                <h3 style="color: var(--dark-text); margin-bottom: 10px;">No Dataset Uploaded</h3>
+                <p style="color: var(--light-text); margin-bottom: 20px;">Please upload a CSV file first to continue.</p>
+                <a href="/upload" style="display: inline-block; padding: 12px 30px; background: var(--primary-gradient); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                    <i class="fas fa-upload"></i> Upload Dataset
+                </a>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+
+    <script>
+        function selectAnalysisType(type) {
+            // Update radio button selection
+            document.getElementById(type).checked = true;
+            
+            // Update visual selection
+            document.querySelectorAll('.analysis-type').forEach(element => {
+                element.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Enable continue button
+            document.getElementById('continueBtn').disabled = false;
+        }
+        
+        // Add smooth entrance animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.analysis-type');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+        });
+    </script>
+</body>
+</html>
