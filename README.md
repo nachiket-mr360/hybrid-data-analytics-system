@@ -1,22 +1,33 @@
 # 🚀 Hybrid Data Analytics System
 
+
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
 [![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
+
 [![Status: Production Ready](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)]()
+
 
 > **AI-Powered Business Intelligence Platform** • Automated Data Cleaning • Professional Analytics Dashboards • Zero-Code Interface
 
+
 Transform raw, messy CSV data into clean, analysis-ready datasets with professional business insights—**all in minutes, not days**. No data science expertise required.
+
 
 ---
 
 ## 📚 Quick Links
 
 - [📖 Full Technical Documentation](PROJECT_DOCUMENTATION.md) - Complete technical deep dive
+- 
 - [🎯 Demo Workflow](#demo-workflow) - See it in action
+- 
 - [⚡ Quick Start](#quick-start) - Get running in 5 minutes
+- 
 - [🏗️ Architecture](#architecture) - System design overview
+- 
 - [🎨 Screenshots](#screenshots-placeholder) - Visual walkthrough
+- 
 
 ---
 
@@ -501,5 +512,6 @@ User Views Results
 
 
 
-#   h y b r i d - d a t a - a n a l y t i c s - s y s t e m  
+#   h y b r i d - d a t a - a n a l y t i c s - s y s t e m 
+ 
  
