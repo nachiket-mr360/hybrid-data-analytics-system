@@ -434,7 +434,11 @@ class AdvancedDataCleaner:
             if self.cleaned_df[col].dtype == 'object':
                 # Check if should be datetime
                 try:
-                    converted = pd.to_datetime(self.cleaned_df[col], errors='coerce')
+                    converted = pd.to_datetime(
+                                            self.cleaned_df[col],
+                                            errors='coerce',
+                                            format='mixed'
+                                            )
                     conversion_rate = converted.notna().sum() / len(converted)
                     
                     if conversion_rate > 0.8:
@@ -538,7 +542,11 @@ class AdvancedDataCleaner:
                     # Strategy 2: Default pandas parser
                     if converted is None:
                         try:
-                            test_conversion = pd.to_datetime(self.cleaned_df[col], errors='coerce')
+                            test_conversion = pd.to_datetime(
+                                                    self.cleaned_df[col],
+                                                    errors='coerce',
+                                                    format='mixed'
+                                                )
                             valid_pct = test_conversion.notna().sum() / len(test_conversion) * 100
                             if valid_pct > 50:
                                 converted = test_conversion
@@ -561,7 +569,11 @@ class AdvancedDataCleaner:
                     
                     # Final fallback
                     if converted is None:
-                        converted = pd.to_datetime(self.cleaned_df[col], errors='coerce')
+                        converted = pd.to_datetime(
+                                            self.cleaned_df[col],
+                                            errors='coerce',
+                                            format='mixed'
+                                                        )
                         valid_pct = converted.notna().sum() / len(converted) * 100
                         parsing_strategy = f'fallback ({valid_pct:.1f}% valid)'
                     
